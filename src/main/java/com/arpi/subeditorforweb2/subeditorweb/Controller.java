@@ -8,6 +8,7 @@ import com.arpi.subeditorforweb2.subeditor.parser.TimingModifierService;
 import com.arpi.subeditorforweb2.subeditor.serializer.StringSerializer;
 import com.arpi.subeditorforweb2.subeditor.utils.FileUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.nio.file.Path;
 import java.util.List;
@@ -16,22 +17,17 @@ import java.util.List;
 public class Controller {
 
     @RequestMapping("/subeditor")
-
-//    public String sayHi() {
-//        return "Hi!";
-//    }
-
-    public void runSubEditor() {
+    public void runSubEditor(@RequestParam String newFileName, Double adjustByTime) {
         Parser parser = new Parser();
         String fileLocation = "subs/mysub.srt";
 
         // Read file
         List<SubEntry> subEntries = parser.readAndParse(fileLocation);
-        String originalFileName = FileUtils.extractFilanameFromPath(fileLocation);
+//        String originalFileName = FileUtils.extractFilanameFromPath(fileLocation);
 
         // Modify timestamps
         TimingModifierService timingModifierService = new TimingModifierService();
-        List<SubEntry> modifiedSubentries = timingModifierService.modifySubentriesTiming(subEntries, 3661);
+        List<SubEntry> modifiedSubentries = timingModifierService.modifySubentriesTiming(subEntries, adjustByTime);
 
         // Modify duration
         SubDisplayDurationModifierService subDisplayDurationModifierService = new SubDisplayDurationModifierService();
@@ -43,7 +39,7 @@ public class Controller {
 
         // String to file
         FileExporter exporter = new FileExporter();
-        Path fileLocationNew = FileUtils.fileNominator(originalFileName);
+        Path fileLocationNew = FileUtils.fileNominator(newFileName);
         exporter.exportStringToFile(result, fileLocationNew);
     }
 }

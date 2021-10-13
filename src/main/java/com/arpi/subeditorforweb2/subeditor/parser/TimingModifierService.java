@@ -2,11 +2,10 @@ package com.arpi.subeditorforweb2.subeditor.parser;
 
 import com.arpi.subeditorforweb2.subeditor.model.Pair;
 import com.arpi.subeditorforweb2.subeditor.utils.FileUtils;
-
 import java.util.List;
 
 public class TimingModifierService {
-    public List<SubEntry> modifySubentriesTiming(List<SubEntry> subEntriesFromParser, double modifierInSecs) {
+    public List<SubEntry> modifySubentriesTiming(List<SubEntry> subEntriesFromParser, Double modifierInSecs) {
 
         for (SubEntry entry : subEntriesFromParser) {
             String timingLine = entry.getTiming();

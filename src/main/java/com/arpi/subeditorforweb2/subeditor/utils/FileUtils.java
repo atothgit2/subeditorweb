@@ -17,12 +17,11 @@ public class FileUtils {        // Utility class, nem kötődik példányhoz, in
         return fileNameMatcher.group();
     }
 
-    public static Path fileNominator(String originalFilename) {
+    public static Path fileNominator(String newFileName) {
         SimpleDateFormat dateFormatForFilename = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         Timestamp timestampForFilename = new Timestamp(System.currentTimeMillis());
 
-        Path outputPath = Paths.get("outputfiles\\" + originalFilename + "_" + dateFormatForFilename.format(timestampForFilename) + ".srt");
-
+        Path outputPath = Paths.get("outputfiles\\" + newFileName + "_" + dateFormatForFilename.format(timestampForFilename) + ".srt");
         return outputPath;
     }
 
