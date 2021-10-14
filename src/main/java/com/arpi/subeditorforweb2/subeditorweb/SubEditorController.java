@@ -14,7 +14,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 @RestController
-public class Controller {
+public class SubEditorController {
 
     @RequestMapping("/subeditor")
     public void runSubEditor(@RequestParam String newFileName, Double adjustByTime) {
