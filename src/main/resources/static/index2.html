@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>Sub|Editor</title>
+</head>
+<body>
+  <header>
+    <h1>Sub|Editor2</h1>
+  </header>
+<main>
+  <article>
+    <div class="article">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tempor, quam et tristique accumsan, urna dolor luctus nisl, et lobortis lectus lectus et metus. Ut non augue lectus.<br>
+      http://localhost:8080/subeditor?newFileName=thissubxxx&adjustByTime=3600
+    </div>
+    
+    <form class="form" id="myForm">
+      <div class="input-group">
+        <div><label for="">Upload *.srt</label></div>
+        <div><input type="file" class="upload" id="upload"></div>
+      </div>      
+
+      <div class="input-group">
+        <div><label for="">New filename</label></div>
+        <div><input type="text" class="new-filename datainput" id="newFileName" value="fileNAME"></div>
+      </div>
+
+      <div class="input-group">
+        <div><label for="">Latency (s)</label></div>
+        <div><input type="number" class="latency datainput" id="adjustByTime" value="30"></div>
+      </div>
+
+      <div class="input-group">
+        <div><label for="">Display time (s)</label></div>
+        <div><input type="number" class="display-time datainput" id="delayByTime" value="30"></div>
+      </div>
+      
+      <div class="input-group">
+        <div><button type="submit" class="submit" id ="submit">Submit</button></div>
+      </div>
+    </form>
+  </article>
+  <script>
+
+    const myForm = document.getElementById("myForm");
+    const file = document.getElementById("upload");
+    const newFileName = document.getElementById("newFileName");
+    const adjustByTime = document.getElementById("adjustByTime");
+    const delayByTime = document.getElementById("delayByTime");
+    
+    myForm.addEventListener("submit", e => {
+    // prevent refresh/redirect
+      e.preventDefault();
+
+      // gonna upload file here
+      const endpoint = "/testjava";
+      // object that hold file, and will be passed in to fetch requser
+      const formData = new FormData();
+
+      // 1st attr is the same as defining a "name" attr in the input tag, this is the nem of the key
+      // 2nd attr: the actual data to be sent
+      formData.append("file", file.files[0]);
+      formData.append("newFileName", newFileName.value);
+      formData.append("adjustByTime", adjustByTime.value);
+      formData.append("delayByTime", delayByTime.value);
+            // 1st arg = where to send
+            fetch(endpoint, { // options
+        method: "post",
+        body: formData
+        // content type will be added automatically
+      }).catch(console.error); // if something goes wrong do this!
+    });
+
+</script>
+</main>
+  <footer></footer>
+</body>
+</html>

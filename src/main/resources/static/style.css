@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(45deg, #ffd900, #fd01a9);
+  /* refers to all text */
+  color: white;
+  font-family: "Poppims", sans-serif;
+  min-height: 100vh;
+  /* margin: 2rem; */
+}
+
+header {
+  display: flex;
+  font-size: 1rem;
+  background-color: rgb(235, 2, 91);
+  color: white;
+  justify-content: center;
+  align-items: center;
+  min-height: 10vh;
+  /* min-width: 10vh; */
+}
+
+.article,
+form {
+  margin: 2rem;
+}
+
+form {
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.input-group {
+  /* display:flex; */
+  flex-direction: column;
+  margin: 0rem;
+}
+
+input {
+  margin-top: 0.3rem;
+  margin-bottom: 1.5rem;
+  padding: 0.4rem;
+  font-size: 1rem;
+  border: none;
+}
+
+label {
+}
+

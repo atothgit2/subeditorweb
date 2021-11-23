@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <title>This is my test html</title>
 </head>
+
 <body>
-    <div>
-        This is my test html
-    </div>
+  ...
+  <a onclick="addUrlParameter('like', 'like')">Like this page</a>
+  ...
 </body>
+
+<script>
+
+
+  function addUrlParameter(name, value) {
+    var searchParams = new URLSearchParams(window.location.search)
+    searchParams.set(name, value)
+    window.location.search = searchParams.toString()
+  }
+</script>
+
 </html>

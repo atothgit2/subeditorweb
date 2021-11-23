@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>Sub|Editor</title>
+</head>
+<body>
+  <header>
+    <h1>Sub|Editor1</h1>
+  </header>
+<main>
+  <article>
+    <div class="article">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tempor, quam et tristique accumsan, urna dolor luctus nisl, et lobortis lectus lectus et metus. Ut non augue lectus.<br>
+      http://localhost:8080/subeditor?newFileName=thissubxxx&adjustByTime=3600
+    </div>
+    
+    <form>
+      <div class="input-group">
+        <div><label for="">Upload *.srt</label></div>
+        <div><input type="file" class="upload" id="upload"></div>
+      </div>      
+
+      <div class="input-group">
+        <div><label for="">New filename</label></div>
+        <div><input type="text" class="new-filename datainput" id="newFileName" value="fileNAME"></div>
+      </div>
+
+      <div class="input-group">
+        <div><label for="">Latency (s)</label></div>
+        <div><input type="number" class="latency datainput" id="adjustByTime" value="30"></div>
+      </div>
+
+      <div class="input-group">
+        <div><label for="">Display time (s)</label></div>
+        <div><input type="number" class="display-time datainput" id="delayByTime" value="30"></div>
+      </div>
+      
+      <div class="input-group">
+        <div><button type="button" class="submit" id ="submit" onclick="test()">Submit</button></div>
+      </div>
+    </form>
+  </article>
+  <script>
+    
+    function test() {
+    saveFile(this);
+// GET PARAMETERS
+    let data = new Array(4);
+    let formElements = document.querySelectorAll(".datainput");
+    let url = "/";
+
+    for (var i = 0; i < formElements.length; i++) {
+      if (formElements[i].value != "") {
+        url = url.concat("subeditor?");
+        break;
+      }
+    }
+
+    for (var i = 0; i < formElements.length; i++) {
+      if (formElements[i].value == "") {
+        continue;
+      } else {
+        url = url.concat(formElements[i].id + "=" + formElements[i].value);
+        // if ( i < formElements.length-1) {
+          url = url.concat("&");
+        // }
+      }
+    }
+    if (url != "/") {
+    url = url.substring(0, url.length - 1);
+    }
+    postData(url);
+  }
+
+// POST method implementation
+  async function postData(url) {
+    const response = await fetch(url, {
+      method: 'GET'
+    });
+  }
+
+// FILE HANDLING
+async function saveFile(input) 
+{
+  let formData = new FormData();
+  let photo = input.files[0];      
+
+  formData.append("photo", photo);
+  
+  const ctrl = new AbortController()    // timeout
+  setTimeout(() => ctrl.abort(), 5000);
+  
+  try {
+    let r = await fetch('/upload/image', 
+      {method: "POST", body: formData, signal: ctrl.signal}); 
+    console.log('HTTP response code:',r.status); 
+  } catch(e) {
+    console.log('Huston we have problem...:', e);
+  }
+}
+</script>
+</main>
+  <footer></footer>
+</body>
+</html>

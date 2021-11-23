@@ -4,3 +4,8 @@ build/
 gradle/
 out/
 outputfiles/*.*
+.classpath
+.project
+.settings/
+.vscode/
+bin/

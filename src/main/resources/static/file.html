@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload file with Fetch API</title>
+</head>
+<body>
+  <h1>Upload file with Fetch API</h1>
+  <form class="form" id="myForm">
+    <input type="file" id="inpFile"><br>
+    <button type="submit">Upload file</button>
+  </form>
+
+  <script>
+    const myForm = document.getElementById("myForm");
+    const inpFile = document.getElementById("inpFile");
+
+    // prevent refresh/redirect
+    myForm.addEventListener("submit", e => {
+      e.preventDefault();
+
+      // gonna upload file here
+      const endpoint = "/upload";
+      // object that hold file, and will be passed in to fetch requser
+      const formData = new FormData();
+
+      console.log(inpFile.files);
+
+      // 1st attr is the same as defining a "name" attr in the input tag, this is the nem of the key
+      // 2nd attr: the actual data to be sent
+      formData.append("inpFile", inpFile.files[0]);
+
+      // 1st arg = where to send
+      fetch(endpoint, { // options
+        method: "post",
+        body: formData
+        // content type will be added automatically
+      }).catch(console.error); // if something goes wrong do this!
+    });
+
+  </script>
+</body>
+</html>
